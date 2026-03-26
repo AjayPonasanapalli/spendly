@@ -1,0 +1,238 @@
+/* ------------------------------------------------------------------ */
+/* Landing page — hero overrides                                        */
+/* ------------------------------------------------------------------ */
+
+:root {
+    --teal: #1abc9c;
+    --teal-light: #e8faf5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero layout                                                         */
+/* ------------------------------------------------------------------ */
+
+.lp-hero {
+    padding: 4rem 2rem 5rem;
+    text-align: center;
+}
+
+.lp-hero-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Badge                                                               */
+/* ------------------------------------------------------------------ */
+
+.lp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--teal-light);
+    color: var(--teal);
+    border: 1px solid #a8ead8;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.35rem 1rem;
+}
+
+.lp-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Headline                                                            */
+/* ------------------------------------------------------------------ */
+
+.lp-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0;
+}
+
+.lp-title-teal {
+    color: var(--teal);
+}
+
+/* ------------------------------------------------------------------ */
+/* Subtitle                                                            */
+/* ------------------------------------------------------------------ */
+
+.lp-subtitle {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* CTA buttons                                                         */
+/* ------------------------------------------------------------------ */
+
+.lp-actions {
+    display: flex;
+    gap: 0.875rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lp-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.7rem 1.6rem;
+    border-radius: 10px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.lp-btn:hover {
+    background: #2d2d2d;
+}
+
+/* ------------------------------------------------------------------ */
+/* App preview frame                                                   */
+/* ------------------------------------------------------------------ */
+
+.lp-preview {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.lp-preview-frame {
+    background: #f2f0eb;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem 1.75rem;
+}
+
+/* Traffic lights */
+.lp-traffic-lights {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.25rem;
+}
+
+.tl {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.tl-red    { background: #ff5f57; }
+.tl-yellow { background: #febc2e; }
+.tl-green  { background: #28c840; }
+
+/* ------------------------------------------------------------------ */
+/* Stat cards                                                          */
+/* ------------------------------------------------------------------ */
+
+.lp-stat-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.lp-stat-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    padding: 1rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: left;
+}
+
+.lp-stat-label {
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+}
+
+.lp-stat-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1.2;
+}
+
+.lp-stat-sub {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+}
+
+.lp-stat-red  { color: #e74c3c; }
+.lp-stat-teal { color: var(--teal); }
+
+/* ------------------------------------------------------------------ */
+/* Bar chart                                                           */
+/* ------------------------------------------------------------------ */
+
+.lp-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.25rem 0;
+}
+
+.lp-chart-row {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lp-chart-label {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+    text-align: left;
+}
+
+.lp-chart-track {
+    height: 10px;
+    background: #e2ddd6;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.lp-chart-bar {
+    height: 100%;
+    border-radius: 999px;
+}
+
+.lp-bar-orange { background: #f0a500; }
+.lp-bar-blue   { background: #4a90d9; }
+.lp-bar-purple { background: #8b6fd4; }
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                          */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 600px) {
+    .lp-stat-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .lp-title {
+        font-size: 2.2rem;
+    }
+}
