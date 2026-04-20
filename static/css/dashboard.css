@@ -1,0 +1,206 @@
+.dash-section {
+    padding: 3rem 1.5rem 4rem;
+}
+
+.dash-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.dash-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.dash-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+}
+
+.dash-subtitle {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+}
+
+.btn-signout {
+    flex-shrink: 0;
+    padding: 0.5rem 1.25rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-signout:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---- Stat cards ---- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    transition: box-shadow 0.2s;
+}
+
+.stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+
+.stat-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--ink);
+    line-height: 1.2;
+}
+
+.stat-value-sm { font-size: 1.3rem; }
+
+.stat-sub {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+}
+
+/* ---- Charts ---- */
+.charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-card {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+
+.chart-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.chart-wrap {
+    position: relative;
+    height: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-wrap canvas { max-height: 260px; }
+
+/* ---- Table ---- */
+.dash-table-wrap {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table-header {
+    padding: 1.1rem 1.25rem 0;
+}
+
+.dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.dash-table thead { background: var(--paper-warm); }
+
+.dash-table th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+}
+
+.th-amount { text-align: right; }
+
+.dash-table td {
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--border-soft);
+    color: var(--ink-soft);
+    vertical-align: middle;
+}
+
+.dash-table tbody tr:last-child td { border-bottom: none; }
+.dash-table tbody tr:hover { background: var(--paper); }
+
+.td-date { color: var(--ink-muted); white-space: nowrap; }
+.td-desc { color: var(--ink-muted); }
+.td-amount { text-align: right; font-weight: 600; color: var(--ink); white-space: nowrap; }
+
+/* ---- Badges ---- */
+.badge {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-food          { background: #fdf3e3; color: #c17f24; }
+.badge-transport     { background: #e8f0eb; color: #1a472a; }
+.badge-bills         { background: #eef2ff; color: #3730a3; }
+.badge-health        { background: #fdecea; color: #c0392b; }
+.badge-entertainment { background: #fdf4ff; color: #7e22ce; }
+.badge-shopping      { background: #ecfeff; color: #0e7490; }
+.badge-other         { background: #f3f4f6; color: #374151; }
+
+/* ---- Empty ---- */
+.dash-empty {
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 3rem;
+    text-align: center;
+    color: var(--ink-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .charts-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 500px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .dash-title { font-size: 1.5rem; }
+}

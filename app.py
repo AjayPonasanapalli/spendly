@@ -1,7 +1,11 @@
 import os
+import json
 import sqlite3
-from flask import Flask, render_template, request, redirect, url_for
-from database.db import get_db, init_db, seed_db, create_user
+from collections import defaultdict
+from datetime import date, timedelta
+from flask import Flask, render_template, request, redirect, url_for, session
+from werkzeug.security import check_password_hash
+from database.db import get_db, init_db, seed_db, create_user, get_user_by_email
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -45,9 +49,21 @@ def register():
     return redirect(url_for("login"))
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+    if request.method == "GET":
+        return render_template("login.html")
+
+    email = request.form.get("email", "").strip()
+    password = request.form.get("password", "")
+
+    user = get_user_by_email(email)
+    if user is None or not check_password_hash(user["password_hash"], password):
+        return render_template("login.html", error="Invalid email or password.", email=email)
+
+    session["user_id"] = user["id"]
+    session["user_name"] = user["name"]
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/terms")
@@ -66,7 +82,62 @@ def privacy():
 
 @app.route("/logout")
 def logout():
-    return "Logout — coming in Step 3"
+    session.clear()
+    return redirect(url_for("landing"))
+
+
+@app.route("/dashboard")
+def dashboard():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = get_db()
+    expenses = conn.execute(
+        "SELECT * FROM expenses WHERE user_id = ? ORDER BY date DESC",
+        (session["user_id"],)
+    ).fetchall()
+    conn.close()
+
+    # ---- Stats ----
+    today = date.today()
+    month_start = today.replace(day=1).isoformat()
+    total_all   = sum(e["amount"] for e in expenses)
+    total_month = sum(e["amount"] for e in expenses if e["date"] >= month_start)
+
+    # Category breakdown (all time)
+    cat_totals = defaultdict(float)
+    for e in expenses:
+        cat_totals[e["category"]] += e["amount"]
+    cat_labels = list(cat_totals.keys())
+    cat_values = [round(cat_totals[k], 2) for k in cat_labels]
+
+    # Monthly totals — last 6 months
+    monthly = {}
+    for i in range(5, -1, -1):
+        d = (today.replace(day=1) - timedelta(days=i * 28))
+        key = d.strftime("%b %Y")
+        monthly[key] = 0.0
+    for e in expenses:
+        d = date.fromisoformat(e["date"])
+        key = d.strftime("%b %Y")
+        if key in monthly:
+            monthly[key] = round(monthly[key] + e["amount"], 2)
+    month_labels = list(monthly.keys())
+    month_values = list(monthly.values())
+
+    top_category = max(cat_totals, key=cat_totals.get) if cat_totals else "—"
+
+    return render_template(
+        "dashboard.html",
+        expenses=expenses,
+        total_all=total_all,
+        total_month=total_month,
+        top_category=top_category,
+        cat_labels=json.dumps(cat_labels),
+        cat_values=json.dumps(cat_values),
+        month_labels=json.dumps(month_labels),
+        month_values=json.dumps(month_values),
+    )
 
 
 @app.route("/profile")
