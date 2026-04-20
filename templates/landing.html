@@ -27,7 +27,11 @@
         </p>
 
         <div class="lp-actions">
-            <a href="{{ url_for('register') }}" class="lp-btn">Create free account</a>
+            {% if session.get('user_id') %}
+                <a href="{{ url_for('dashboard') }}" class="lp-btn">Go to dashboard</a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="lp-btn">Create free account</a>
+            {% endif %}
             <button class="lp-btn" id="open-video-modal">See how it works</button>
         </div>
 
@@ -122,7 +126,11 @@
     <div class="cta-inner">
         <h2 class="cta-title">Ready to take control?</h2>
         <p class="cta-body">Join thousands of people who track their expenses with Spendly.</p>
-        <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('dashboard') }}" class="btn-primary">Go to dashboard</a>
+        {% else %}
+            <a href="{{ url_for('register') }}" class="btn-primary">Create free account</a>
+        {% endif %}
     </div>
 </section>
 
